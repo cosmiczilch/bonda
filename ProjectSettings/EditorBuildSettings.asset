@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Terrain.unity
     guid: a396946fe8c3d46d9ad97d97fb604b7d
+  - enabled: 1
+    path: Assets/Scenes/Starfield.unity
+    guid: 6aafdc921ba304a2192053d0e354e4f7
   - enabled: 0
     path: Assets/Scenes/TestScene.unity
     guid: 64c2cc0f9e82444beb386add18a742fa
