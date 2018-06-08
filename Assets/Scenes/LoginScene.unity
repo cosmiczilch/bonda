@@ -165,6 +165,46 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c489b244a64fd46cb83754466064f8cc, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &138220058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 138220060}
+  - component: {fileID: 138220059}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &138220059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 138220058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a430971eb7ded47f1b9c791991dd7979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &138220060
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 138220058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1247398515}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +318,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 362459671}
+  - component: {fileID: 362459675}
   - component: {fileID: 362459674}
   - component: {fileID: 362459673}
   - component: {fileID: 362459672}
@@ -347,6 +388,17 @@ MonoBehaviour:
   _initializables:
   - {fileID: 362459673}
   - {fileID: 362459672}
+--- !u!114 &362459675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 362459670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8376e0cc40664b65914489c6fbd516c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &545128665
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 177460021}
+  - {fileID: 138220060}
   m_Father: {fileID: 362459671}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -576,6 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefabloader: {fileID: 177460022}
+  _sceneLoader: {fileID: 138220059}
 --- !u!1 &1493853272
 GameObject:
   m_ObjectHideFlags: 0
