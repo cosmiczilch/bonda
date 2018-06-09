@@ -408,6 +408,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scenesToLoad:
   - sceneName: Terrain
-    loadSceneMode: 1
   - sceneName: Starfield
-    loadSceneMode: 1
