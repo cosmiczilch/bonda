@@ -10,7 +10,7 @@ public class StarSpawner : MonoBehaviour {
     [SerializeField] private float _starfieldDistance = 1200;
 
     private void Start() {
-        if (string.IsNullOrEmpty(this._starPrefabPath) == null) {
+        if (string.IsNullOrEmpty(this._starPrefabPath)) {
             TimiDebug.LogWarning("Star prefab path not set");
             return;
         }
