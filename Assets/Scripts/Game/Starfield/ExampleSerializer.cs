@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using ProtoBuf;
+using TimiShared.Utils;
 using UnityEngine;
 
 public class ExampleSerializer : MonoBehaviour {
@@ -12,8 +13,8 @@ public class ExampleSerializer : MonoBehaviour {
 
     private void Start() {
         //// Pick one of the two below:
-        this.SerializeStars();
-        this._starsData = this.DeserializeStars();
+//         this.SerializeStars();
+         this._starsData = this.DeserializeStars();
     }
 
     private void SerializeStars() {
@@ -44,17 +45,20 @@ public class ExampleSerializer : MonoBehaviour {
             starsData.stars[2] = star;
         }
 
-
-        using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
+        FileStream fileStream = FileUtils.OpenFileStream(filePath, FileMode.Create, FileAccess.Write);
+        if (fileStream != null) {
             Serializer.Serialize<StarsData>(fileStream, starsData);
             fileStream.Flush();
+            FileUtils.CloseFileStream(fileStream);
         }
     }
 
     private StarsData DeserializeStars() {
-        StarsData starsData;
-        using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read)) {
+        StarsData starsData = null;
+        FileStream fileStream = FileUtils.OpenFileStream(filePath, FileMode.Open, FileAccess.Read);
+        if (fileStream != null) {
             starsData = Serializer.Deserialize<StarsData>(fileStream);
+            FileUtils.CloseFileStream(fileStream);
         }
         return starsData;
     }
