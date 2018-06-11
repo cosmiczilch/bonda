@@ -257,6 +257,7 @@ MonoBehaviour:
   _groupName: Shared
   _initializableObjects:
   - {fileID: 1247398514}
+  - {fileID: 1672760951}
 --- !u!114 &362459674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +351,7 @@ Transform:
   m_Children:
   - {fileID: 177460021}
   - {fileID: 138220060}
+  - {fileID: 1672760953}
   m_Father: {fileID: 362459671}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -409,3 +411,43 @@ MonoBehaviour:
   _scenesToLoad:
   - sceneName: Terrain
   - sceneName: Starfield
+--- !u!1 &1672760951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1672760953}
+  - component: {fileID: 1672760952}
+  m_Layer: 0
+  m_Name: ProtobufInit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1672760952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1672760951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5f6a90e7f4747a4a729c1c71ba3b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1672760953
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1672760951}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1247398515}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
