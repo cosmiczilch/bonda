@@ -470,7 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _starsData:
     stars: []
-  filePath: Assets/Resources/starsData
+  filePath: Assets/Resources/Data/starData
 --- !u!1 &1373053979
 GameObject:
   m_ObjectHideFlags: 0
