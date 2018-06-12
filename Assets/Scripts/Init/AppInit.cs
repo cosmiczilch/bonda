@@ -1,3 +1,4 @@
+using TimiShared.Debug;
 using TimiShared.Init;
 using TimiShared.Service;
 using UnityEngine;
@@ -8,18 +9,24 @@ public class AppInit : MonoBehaviour, IInitializable {
     public static System.Action OnAppInitComplete = delegate {};
 #endregion
 
-    // TODO: Move this somewhere else. This is too janky
-    [SerializeField]
-    private string _starsDataPath = "Assets/Resources/Data/starsData";
-
 #region IInitializable
     public void StartInitialize() {
+        // Register AppDataModel
         AppDataModel appDataModel = new AppDataModel();
-        appDataModel.LoadData(this._starsDataPath);
-        ServiceLocator.RegisterService<AppDataModel>(appDataModel);
+        appDataModel.LoadData(() => {
+            // TODO: Fix this flow please, we can't support multiple things being inited here in any non-ugly way right now
+            ServiceLocator.RegisterService<AppDataModel>(appDataModel);
+            this.IsFullyInitialized = true;
+            OnAppInitComplete.Invoke();
 
-        this.IsFullyInitialized = true;
-        OnAppInitComplete.Invoke();
+            StarsData starsData = AppDataModel.Instance.StarsData;
+            if (starsData == null) {
+                TimiDebug.LogColor("null", LogColor.cyan);
+            }
+            if (starsData != null && starsData.stars != null) {
+                TimiDebug.LogColor("Loaded this many stars: " + starsData.stars.Count, LogColor.cyan);
+            }
+        });
     }
 
     public bool IsFullyInitialized {

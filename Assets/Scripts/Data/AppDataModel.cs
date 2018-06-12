@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using ProtoBuf;
-using TimiShared.Debug;
+using TimiShared.Loading;
 using TimiShared.Service;
-using TimiShared.Utils;
 
 public class AppDataModel : IService {
 
@@ -12,23 +13,60 @@ public class AppDataModel : IService {
         }
     }
 
+    // This is the root of the app data models inside streaming assets
+    private const string APPDATAMODEL_ROOT = "AppDataModels/";
+    private const string APPDATAMODEL_EXTENSION = ".pb";
+
     #region Data
-    private StarsData _starsData;
-    public StarsData Stars {
+    private Dictionary<DataModelType, Object> _dataModels = new Dictionary<DataModelType, object>();
+
+    private enum DataModelType {
+        STARS_DATA = 0,
+        COUNT
+    }
+
+    public StarsData StarsData {
         get {
-            return this._starsData;
+            // TODO: Get or default
+            return this._dataModels[DataModelType.STARS_DATA] as StarsData;
         }
     }
     #endregion
 
-    public void LoadData(string filePath) {
-        FileStream fileStream = FileUtils.OpenFileStream(filePath, FileMode.Open, FileAccess.Read);
-        if (fileStream != null) {
-            this._starsData = Serializer.Deserialize<StarsData>(fileStream);
-            FileUtils.CloseFileStream(fileStream);
-        }
+    private int _numLoadedDataModels;
+    private System.Action _onDataModelsLoadedCallback;
 
-        TimiDebug.LogColor("AppDataModel loaded ", LogColor.green);
-        TimiDebug.LogColor("Loaded " + this.Stars.stars.Count + " stars", LogColor.green);
+    public void LoadData(System.Action onLoadedCallback) {
+        this._numLoadedDataModels = 0;
+        this._onDataModelsLoadedCallback = onLoadedCallback;
+
+        this.LoadDataModel<StarsData>(DataModelType.STARS_DATA, OnDataModelLoaded);
+    }
+
+    private void LoadDataModel<T>(DataModelType dataModelType, System.Action<bool> onLoadedCallback) {
+        string filePath = Path.Combine(APPDATAMODEL_ROOT, typeof(T).ToString() + APPDATAMODEL_EXTENSION);
+
+        AssetLoader.Instance.GetStreamFromStreamingAssets(filePath, (Stream stream) => {
+            if (stream != null) {
+                Object dataModel = Serializer.Deserialize<T>(stream);
+                this._dataModels.Add(dataModelType, dataModel);
+                AssetLoader.Instance.CloseStream(stream);
+                onLoadedCallback.Invoke(true);
+            } else {
+                onLoadedCallback.Invoke(false);
+            }
+        });
+    }
+
+    private void OnDataModelLoaded(bool success) {
+        if (success) {
+            ++this._numLoadedDataModels;
+            if (this._numLoadedDataModels >= (int)DataModelType.COUNT) {
+                if (this._onDataModelsLoadedCallback != null) {
+                    this._onDataModelsLoadedCallback.Invoke();
+                    this._onDataModelsLoadedCallback = null;
+                }
+            }
+        }
     }
 }
