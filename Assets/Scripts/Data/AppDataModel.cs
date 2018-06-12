@@ -4,6 +4,7 @@ using System.IO;
 using ProtoBuf;
 using TimiShared.Loading;
 using TimiShared.Service;
+using TimiShared.Extensions;
 
 public class AppDataModel : IService {
 
@@ -27,8 +28,7 @@ public class AppDataModel : IService {
 
     public StarsData StarsData {
         get {
-            // TODO: Get or default
-            return this._dataModels[DataModelType.STARS_DATA] as StarsData;
+            return this._dataModels.GetOrDefault(DataModelType.STARS_DATA) as StarsData;
         }
     }
     #endregion

@@ -420,6 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1366755656}
   - component: {fileID: 1366755657}
+  - component: {fileID: 1366755658}
   m_Layer: 0
   m_Name: Stars
   m_TagString: Untagged
@@ -456,6 +457,17 @@ MonoBehaviour:
   _targetCamera: {fileID: 341520260}
   _numStars: 500
   _starfieldDistance: 1800
+--- !u!114 &1366755658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1366755655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9812e466088854e26ae0a66973d89b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1373053979
 GameObject:
   m_ObjectHideFlags: 0

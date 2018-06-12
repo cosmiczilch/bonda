@@ -18,14 +18,6 @@ public class AppInit : MonoBehaviour, IInitializable {
             ServiceLocator.RegisterService<AppDataModel>(appDataModel);
             this.IsFullyInitialized = true;
             OnAppInitComplete.Invoke();
-
-            StarsData starsData = AppDataModel.Instance.StarsData;
-            if (starsData == null) {
-                TimiDebug.LogColor("null", LogColor.cyan);
-            }
-            if (starsData != null && starsData.stars != null) {
-                TimiDebug.LogColor("Loaded this many stars: " + starsData.stars.Count, LogColor.cyan);
-            }
         });
     }
 

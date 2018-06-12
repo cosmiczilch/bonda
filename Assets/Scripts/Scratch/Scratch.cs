@@ -3,29 +3,20 @@ using UnityEngine;
 
 public class Scratch : MonoBehaviour {
 
-    [SerializeField]
-    private Transform _blinkingCubeTransform;
-
-    [SerializeField]
-    private OVRCameraRig _cameraRig;
-
 	// Use this for initialization
     void Start () {
+        AppInit.OnAppInitComplete += this.OnAppInitComplete;
+        this.OnAppInitComplete();
     }
-	
-	// Update is called once per frame
-    void Update () {
-        bool isButtonDown = OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Two);
 
-        if (this._blinkingCubeTransform != null) {
-            this._blinkingCubeTransform.gameObject.SetActive(!isButtonDown);
-        }
+    private void OnDestroy() {
+        AppInit.OnAppInitComplete -= this.OnAppInitComplete;
+	}
 
-        if (this._cameraRig != null) {
-            if (this._cameraRig.usePerEyeCameras == false && isButtonDown) {
-                TimiDebug.LogErrorColor("Switching", LogColor.red);
-            }
-            this._cameraRig.usePerEyeCameras = isButtonDown;
+	private void OnAppInitComplete() {
+        if (AppDataModel.Instance.StarsData == null || AppDataModel.Instance.StarsData.stars == null) {
+            TimiDebug.LogErrorColor("No stars loaded", LogColor.red);
         }
+        TimiDebug.LogColor("Loaded " + AppDataModel.Instance.StarsData.stars.Count + " stars", LogColor.cyan);
     }
 }
