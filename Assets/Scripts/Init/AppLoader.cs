@@ -22,6 +22,12 @@ public class AppLoader : MonoBehaviour, IInitializable {
     public bool IsFullyInitialized {
         get; private set;
     }
+
+    public string GetName {
+        get {
+            return this.GetType().Name;
+        }
+    }
     #endregion
 
     private void SceneLoadCallback(string sceneName, bool sceneLoadedSuccess) {
