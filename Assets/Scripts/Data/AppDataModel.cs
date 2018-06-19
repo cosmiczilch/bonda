@@ -29,11 +29,13 @@ public class AppDataModel : DataModelBase, IService {
         // Add more data types here
     };
 
+    private StarsDataWrapper _starsDataWrapper;
 
     #region Public API
-    public StarsData StarsData {
+    public StarsDataWrapper StarsData {
         get {
-            return this.GetDataModelForType(typeof(StarsData)) as StarsData;
+            return this._starsDataWrapper ??
+            (this._starsDataWrapper = new StarsDataWrapper(this.GetDataModelForType(typeof(StarsData)) as StarsData));
         }
     }
     #endregion
