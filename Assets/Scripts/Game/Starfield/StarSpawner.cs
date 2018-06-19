@@ -23,25 +23,40 @@ public class StarSpawner : MonoBehaviour {
     }
 
     private void Update() {
-        this.transform.RotateAround(this.transform.position, this.transform.right, -0.02f);
+//        this.transform.RotateAround(this.transform.position, this.transform.right, -0.02f);
     }
 
     private void SpawnStars() {
-        Random.InitState(200);
-        for (int i = 0; i < this._numStars; ++i) {
-            PrefabLoader.Instance.InstantiateAsynchronous(this._starPrefabPath, this.transform, (GameObject starGO) => {
-                float theta = Random.Range(0.0f, 360.0f * Mathf.PI / 180.0f);
-                float phi   = Random.Range(0.0f, 360.0f * Mathf.PI / 180.0f);
-                float x = this._starfieldDistance * Mathf.Sin(theta) * Mathf.Cos(phi);
-                float y = this._starfieldDistance * Mathf.Sin(theta) * Mathf.Sin(phi);
-                float z = this._starfieldDistance * Mathf.Cos(theta) * -1;
-                starGO.transform.localPosition = new Vector3(x, y, z);
+        if (AppDataModel.Instance.StarsData == null ||
+        AppDataModel.Instance.StarsData.stars == null ||
+        AppDataModel.Instance.StarsData.stars.Count == 0) {
+            return;
+        }
+
+        StarData someStar = null;
+        var enumerator = AppDataModel.Instance.StarsData.stars.GetEnumerator();
+        while (enumerator.MoveNext()) {
+            if (true || !string.IsNullOrEmpty(enumerator.Current.common_name)) {
+                someStar = enumerator.Current;
+
+                GameObject starGO = PrefabLoader.Instance.InstantiateSynchronous(this._starPrefabPath, this.transform);
+
+                starGO.transform.localPosition = StarFieldUtils.GetPositionFromRaDec(someStar.right_ascension,
+                                                                someStar.declination, this._starfieldDistance);
+                if (!string.IsNullOrEmpty(someStar.common_name)) {
+                    starGO.name = someStar.common_name;
+                    if (someStar.common_name == "Polaris" || someStar.common_name == "Mintaka") {
+                        starGO.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
+                    } else {
+                        starGO.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+                    }
+                }
 
                 Lookat starLookat = starGO.GetComponent<Lookat>();
                 if (starLookat != null) {
                     starLookat.Target = this._targetCamera;
                 }
-            });
+            }
         }
     }
 
