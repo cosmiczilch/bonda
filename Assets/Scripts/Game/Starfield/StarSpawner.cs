@@ -1,7 +1,8 @@
-﻿using TimiShared.Debug;
-using TimiShared.Loading;
+﻿using TimiShared.Loading;
+using TimiShared.Debug;
 using UnityEngine;
 
+// TODO: Remove this class
 public class StarSpawner : MonoBehaviour {
 
     [SerializeField] private string _starPrefabPath;
@@ -19,6 +20,7 @@ public class StarSpawner : MonoBehaviour {
             return;
         }
 
+        // this.SpawnGridLikeThing();
         this.SpawnStars();
     }
 
@@ -27,16 +29,11 @@ public class StarSpawner : MonoBehaviour {
     }
 
     private void SpawnStars() {
-        if (AppDataModel.Instance.StarsData == null ||
-        AppDataModel.Instance.StarsData.stars == null ||
-        AppDataModel.Instance.StarsData.stars.Count == 0) {
-            return;
-        }
 
         StarData someStar = null;
-        var enumerator = AppDataModel.Instance.StarsData.stars.GetEnumerator();
+        var enumerator = AppDataModel.Instance.StarsData.GetStarsWithCommonNames().GetEnumerator();
         while (enumerator.MoveNext()) {
-            if (true || !string.IsNullOrEmpty(enumerator.Current.common_name)) {
+            if (!string.IsNullOrEmpty(enumerator.Current.common_name)) {
                 someStar = enumerator.Current;
 
                 GameObject starGO = PrefabLoader.Instance.InstantiateSynchronous(this._starPrefabPath, this.transform);
@@ -59,6 +56,33 @@ public class StarSpawner : MonoBehaviour {
             }
         }
     }
+
+    private void SpawnGridLikeThing() {
+
+        int howManyAround = 18;
+        for (int j = 0; j < howManyAround; ++j) {
+
+            int howManyUp = 10;
+            for (int i = 0; i < howManyUp; ++i) {
+
+                float phi = j * 2 * Mathf.PI / howManyAround;
+                float theta = i * Mathf.PI / 2.0f / howManyUp;
+
+                GameObject starGO = PrefabLoader.Instance.InstantiateSynchronous(this._starPrefabPath, this.transform);
+
+                starGO.transform.localPosition = StarFieldUtils.GetPositionFromPhiTheta(phi, theta, this._starfieldDistance);
+                starGO.name = i.ToString();
+                starGO.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
+
+                Lookat starLookat = starGO.GetComponent<Lookat>();
+                if (starLookat != null) {
+                    starLookat.Target = this._targetCamera;
+                }
+            }
+        }
+    }
+
+
 
 
 }

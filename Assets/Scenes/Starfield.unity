@@ -137,7 +137,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 293572830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 8}
+  m_LocalPosition: {x: 0, y: 2.13, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1366755656}
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1366755655}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 896c9ca402f7e4fcfb47954d75518bbf, type: 3}
   m_Name: 
@@ -542,19 +542,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9812e466088854e26ae0a66973d89b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _apparentMagnitudeBrightest: -2
+  _apparentMagnitudeDimmest: 6
 --- !u!114 &1366755659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1366755655}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08d51b32a9bef443db18fb7486004c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _harness: {fileID: 293572831}
   _meshFilter: {fileID: 293572833}
+  _apparentMagnitudeBrightest: -2
+  _apparentMagnitudeDimmest: 6
+  _scaleBrightest: 40
+  _scaleDimmest: 10
 --- !u!1 &1373053979
 GameObject:
   m_ObjectHideFlags: 0
